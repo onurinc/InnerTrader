@@ -1,0 +1,35 @@
+name: ApiGateway workflow
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore ApiGateway/ApiGateway.csproj
+    - name: Build
+      run: dotnet build ApiGateway/ApiGateway.csproj --no-restore
+    - name: Test
+      run: dotnet test ApiGateway/ApiGateway.csproj --no-build --verbosity normal
+
+    - name: Docker Build & Push Action
+      uses: mr-smithers-excellent/docker-build-push@v6.2
+      with:
+        image: onurinc/apigateway
+        tags: v1, latest
+        registry: docker.io
+        dockerfile: ApiGateway/Dockerfile
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
