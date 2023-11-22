@@ -7,6 +7,8 @@ services:
 
   engagementsapi:
     image: ${DOCKER_REGISTRY-}engagementsapi
+    ports: 
+      - "18004:80"
     build:
       context: .
       dockerfile: EngagementsAPI/Dockerfile
@@ -15,7 +17,7 @@ services:
     container_name: usersystem-api
     image: ${DOCKER_REGISTRY-}usersystemapi
     ports: 
-      - "8005:80"
+      - "18005:80"
     build:
       context: .
       dockerfile: UserSystemAPI/Dockerfile
@@ -30,7 +32,7 @@ services:
     container_name: blog-api
     image: ${DOCKER_REGISTRY-}blogapi
     ports: 
-      - "8004:80"
+      - "18004:80"
     build:
       context: .
       dockerfile: BlogAPI/Dockerfile
@@ -48,7 +50,7 @@ services:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=password1!
     ports:
-      - '8001:1433'
+      - '18006:1433'
     restart: always
     networks:
       - backend
@@ -60,7 +62,7 @@ services:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=password1!
     ports:
-      - '8002:1433'
+      - '18002:1433'
     restart: always
     networks:
       - backend
@@ -73,7 +75,7 @@ services:
       context: .
       dockerfile: ApiGateway/Dockerfile
     ports:
-      - '8001:80'
+      - '18001:80'
     networks:
       - backend
 
