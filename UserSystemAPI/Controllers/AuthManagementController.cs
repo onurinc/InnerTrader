@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-
+using Microsoft.AspNetCore.Cors;
 
 namespace UserSystemAPI.Controllers;
 [ApiController]
@@ -71,6 +71,7 @@ public class AuthManagementController : ControllerBase
                     return claims;
     }
     
+
     [HttpPost]
     [Route("Register")]
     public async Task<IActionResult> Register([FromBody] UserRegistrationRequestDto requestDto)
@@ -107,7 +108,7 @@ public class AuthManagementController : ControllerBase
 
     [HttpPost]
     [Route("Login")]
-    public async Task<IActionResult> Login([FromBody] UserLoginRequestDto requestDto)
+    public async Task<IActionResult> Login(UserLoginRequestDto requestDto)
     {
         if (ModelState.IsValid)
         {
@@ -122,7 +123,7 @@ public class AuthManagementController : ControllerBase
             {
                 var token = GenerateJwtToken(existingUser);
 
-                return Ok(token);
+                return Ok(await token);
             }
         }
         return BadRequest("invalid auth");

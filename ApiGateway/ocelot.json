@@ -1,10 +1,50 @@
 {
   "Routes": [
     {
-    "UpstreamPathTemplate": "/Blogs",
-    "UpstreamHttpMethod": ["Get", "Post", "Put"],
-    
-    "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/Roles/GetAllRoles",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "usersystemapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Roles/GetAllRoles"
+    },
+    // UserSystemAPI/Register
+    {
+      "UpstreamPathTemplate": "/AuthManagement/Register",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "usersystemapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/AuthManagement/Register"
+    },
+    // UserSystemAPI/Login
+    {
+      "UpstreamPathTemplate": "/AuthManagement/Login",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "usersystemapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/AuthManagement/Login"
+    },
+    // BlogAPI
+    {
+      "UpstreamPathTemplate": "/Blogs",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "blogapi",
@@ -15,7 +55,7 @@
     },
     {
       "UpstreamPathTemplate": "/Blogs/{id}",
-      "UpstreamHttpMethod": ["Get", "Delete"],
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
