@@ -1,0 +1,33 @@
+{
+
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/Blogs",
+      "UpstreamHttpMethod": [
+        "Get, " Post", "Put" ],
+        "DownstreamScheme"
+        :
+        "http",
+        "DownStreamHostAndPorts"
+        :
+        [
+          {
+            "Host": "blogapi"
+            "Port": 80
+          }
+        ],
+        "DownStreamPathTemplate"
+        :
+        "/api/Blogs"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Blogs/"
+
+    }
+
+  ],
+  "GlobalConfiguration": {
+    "http://localhost:800"
+  }
+
+}

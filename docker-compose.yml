@@ -1,0 +1,79 @@
+version: '3.4'
+
+networks:
+  backend:
+
+services:
+
+  engagementsapi:
+    image: ${DOCKER_REGISTRY-}engagementsapi
+    build:
+      context: .
+      dockerfile: EngagementsAPI/Dockerfile
+
+  usersystemapi:
+    container_name: usersystem-api
+    image: ${DOCKER_REGISTRY-}usersystemapi
+    ports: 
+      - "8005:80"
+    build:
+      context: .
+      dockerfile: UserSystemAPI/Dockerfile
+    environment:
+      - DB_HOST=usersystemdb
+      - DB_NAME=usersystem
+      - DB_SA_PASSWORD=password1!
+    networks:
+      - backend
+
+  blogapi:
+    container_name: blog-api
+    image: ${DOCKER_REGISTRY-}blogapi
+    ports: 
+      - "8004:80"
+    build:
+      context: .
+      dockerfile: BlogAPI/Dockerfile
+    environment:
+      - DB_HOST=blogdb
+      - DB_NAME=blog
+      - DB_SA_PASSWORD=password1!
+    networks:
+      - backend
+
+  blogdb:
+    container_name: blog-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=password1!
+    ports:
+      - '8001:1433'
+    restart: always
+    networks:
+      - backend
+
+  usersystemdb:
+    container_name: usersystem-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=password1!
+    ports:
+      - '8002:1433'
+    restart: always
+    networks:
+      - backend
+
+
+  apigateway:
+    container_name: api-gateway
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    ports:
+      - '8001:80'
+    networks:
+      - backend
+
