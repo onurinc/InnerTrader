@@ -1,33 +1,32 @@
 {
-
   "Routes": [
     {
-      "UpstreamPathTemplate": "/api/Blogs",
-      "UpstreamHttpMethod": [
-        "Get, " Post", "Put" ],
-        "DownstreamScheme"
-        :
-        "http",
-        "DownStreamHostAndPorts"
-        :
-        [
-          {
-            "Host": "blogapi"
-            "Port": 80
-          }
-        ],
-        "DownStreamPathTemplate"
-        :
-        "/api/Blogs"
+    "UpstreamPathTemplate": "/Blogs",
+    "UpstreamHttpMethod": ["Get", "Post", "Put"],
+    
+    "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "blogapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/Blogs"
     },
     {
-      "UpstreamPathTemplate": "/api/Blogs/"
-
+      "UpstreamPathTemplate": "/Blogs/{id}",
+      "UpstreamHttpMethod": ["Get", "Delete"],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "blogapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/Blogs/{id}"
     }
-
   ],
   "GlobalConfiguration": {
-    "http://localhost:800"
+    "BaseUrl": "http://localhost:800"
   }
-
 }

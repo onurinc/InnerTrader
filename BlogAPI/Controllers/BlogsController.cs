@@ -22,8 +22,7 @@ namespace BlogAPI.Controllers
             return Ok(await _unitOfWork.Blogs.All());
         }
 
-        [HttpGet]
-        [Route(template: "GetById")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> Get(int id)
         {
             var blog = await _unitOfWork.Blogs.GetById(id);
@@ -33,7 +32,6 @@ namespace BlogAPI.Controllers
         }
 
         [HttpPost]
-        [Route(template: "AddBlog")]
         public async Task<IActionResult> AddBlog(Blog blog)
         {
             _unitOfWork.Blogs.Add(blog);
@@ -41,8 +39,7 @@ namespace BlogAPI.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        [Route(template: "DeleteBlog")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteBlog(int id)
         {
             var blog = await _unitOfWork.Blogs.GetById(id);
@@ -55,8 +52,7 @@ namespace BlogAPI.Controllers
             return NoContent();
         }
 
-        [HttpPatch]
-        [Route(template: "UpdateBlog")]
+        [HttpPut]
         public async Task<IActionResult> UpdateBlog(Blog blog)
         {
             var existBlog = await _unitOfWork.Blogs.GetById(blog.Id);

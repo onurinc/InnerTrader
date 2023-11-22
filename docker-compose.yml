@@ -17,7 +17,7 @@ services:
     container_name: usersystem-api
     image: ${DOCKER_REGISTRY-}usersystemapi
     ports: 
-      - "18005:80"
+      - "18009:80"
     build:
       context: .
       dockerfile: UserSystemAPI/Dockerfile
@@ -75,7 +75,6 @@ services:
       context: .
       dockerfile: ApiGateway/Dockerfile
     ports:
-      - '18001:80'
+      - '8001:80'
     networks:
       - backend
-
