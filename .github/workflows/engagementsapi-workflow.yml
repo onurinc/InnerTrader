@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -21,9 +20,18 @@ jobs:
       run: dotnet restore EngagementsAPI/EngagementsAPI.csproj
     - name: Build
       run: dotnet build EngagementsAPI/EngagementsAPI.csproj --no-restore
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Test
       run: dotnet test EngagementsAPI/EngagementsAPI.csproj --no-build --verbosity normal
 
+  docker_build_push:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Docker Build & Push Action
       uses: mr-smithers-excellent/docker-build-push@v6.2
       with:
