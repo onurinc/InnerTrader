@@ -22,6 +22,7 @@ jobs:
       run: dotnet build EngagementsAPI/EngagementsAPI.csproj --no-restore
 
   test:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -29,6 +30,7 @@ jobs:
       run: dotnet test EngagementsAPI/EngagementsAPI.csproj --no-build --verbosity normal
 
   docker_build_push:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
