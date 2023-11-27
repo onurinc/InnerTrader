@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace UserSystemAPI.RolesController
  {
@@ -28,8 +30,8 @@ namespace UserSystemAPI.RolesController
              _roleManager = roleManager;
          }
 
-
-         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [HttpGet]
          [Route("GetAllRoles")]
          public IActionResult GetAllRoles()
          {
